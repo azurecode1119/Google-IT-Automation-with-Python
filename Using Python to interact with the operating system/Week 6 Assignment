@@ -1,0 +1,25 @@
+'''The first script is a Bash script which find the paths of files containing "Jane" and add to a txt called oldFiles.txt
+Pay attentino to the $HOME$f path reference'''
+
+#!/bin/bash
+>oldfiles.txt
+files = $(grep "jane " ../data/list.txt | cut -d ' ' -f3)
+for f in $files; do
+  if  [ -e $HOME$f ]; then
+    echo $HOME$f >> oldFiles.txt;
+  fi
+done
+
+'''Python script to change names, pay attention to how file is opened and subprocess is called'''
+
+#! /user/bin/env python3
+import sys
+import subprocess
+
+f = open (sys.argv[1], "r")
+for line in f.readlines():
+  old_name = line.strip()
+  new_name = old_name.replace('jane', 'jdoe')
+  subprocess.run(['mv', old_name, new_name])
+f.close()
+
